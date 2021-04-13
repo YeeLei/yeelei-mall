@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -26,6 +25,11 @@ public class CategoryServiceImpl implements CategoryService {
     @Autowired
     private CategoryMapper categoryMapper;
 
+    /**
+     * 添加商品分类
+     *
+     * @param addCategoryReq 商品分类请求参数
+     */
     @Override
     public void add(AddCategoryReq addCategoryReq) {
         Category category = new Category();
@@ -40,6 +44,11 @@ public class CategoryServiceImpl implements CategoryService {
         }
     }
 
+    /**
+     * 更新商品分类
+     *
+     * @param updateCategory 更新商品分类请求参数
+     */
     @Override
     public void update(Category updateCategory) {
         if (updateCategory.getName() != null) {
@@ -55,6 +64,11 @@ public class CategoryServiceImpl implements CategoryService {
         }
     }
 
+    /**
+     * 根据id删除商品分类
+     *
+     * @param id 商品分类id
+     */
     @Override
     public void delete(Integer id) {
         Category categoryOld = categoryMapper.selectByPrimaryKey(id);
@@ -68,30 +82,48 @@ public class CategoryServiceImpl implements CategoryService {
         }
     }
 
+    /**
+     * 商品分类后台列表
+     *
+     * @param pageNum  页码
+     * @param pageSize 每页显示的条数
+     * @return 后台分类列表
+     */
     @Override
     public PageInfo listCategoryForAdmin(Integer pageNum, Integer pageSize) {
-        PageHelper.startPage(pageNum,pageSize,"type,order_num");
+        PageHelper.startPage(pageNum, pageSize, "type,order_num");
         List<Category> categoryList = categoryMapper.selectList();
         PageInfo<Category> pageInfo = new PageInfo<>(categoryList);
         return pageInfo;
     }
 
+    /**
+     * 根据parentId查询前台分类商品列表
+     *
+     * @param parentId
+     * @return 前台分类列表
+     */
     @Override
     public List<CategoryVO> listCategoryForConsumer(Integer parentId) {
         ArrayList<CategoryVO> categoryVOS = new ArrayList<>();
-        recursivelyFindCategories(categoryVOS,parentId);
+        recursivelyFindCategories(categoryVOS, parentId);
         return categoryVOS;
     }
 
-    //递归获取所有子类别,并组合称为一个目录树
+    /**
+     * 递归获取所有子类别,并组合称为一个目录树
+     *
+     * @param categoryVOS
+     * @param parentId
+     */
     private void recursivelyFindCategories(List<CategoryVO> categoryVOS, Integer parentId) {
         List<Category> categoryList = categoryMapper.selectCategoriesByParentId(parentId);
         if (!CollectionUtils.isEmpty(categoryList)) {
             for (Category category : categoryList) {
                 CategoryVO categoryVO = new CategoryVO();
-                BeanUtils.copyProperties(category,categoryVO);
+                BeanUtils.copyProperties(category, categoryVO);
                 categoryVOS.add(categoryVO);
-                recursivelyFindCategories(categoryVO.getChildCategory(),categoryVO.getId());
+                recursivelyFindCategories(categoryVO.getChildCategory(), categoryVO.getId());
             }
         }
     }

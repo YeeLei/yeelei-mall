@@ -1,12 +1,15 @@
-package com.yeelei.mall.model.pojo;
+package com.yeelei.mall.model.vo;
 
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
+/**
+ * 描述： OrderVO,订单详情
+ */
 @Data
-public class Order {
-    private Integer id;
+public class OrderVO {
 
     private String orderNo;
 
@@ -35,5 +38,9 @@ public class Order {
     private Date createTime;
 
     private Date updateTime;
+
+    private String orderStatusName;
+
+    private List<OrderItemVO> orderItemVOList;
 
 }

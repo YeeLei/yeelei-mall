@@ -21,6 +21,11 @@ public class UserServiceImpl implements UserService {
         return userMapper.selectByPrimaryKey(13);
     }
 
+    /**
+     * 用户注册
+     * @param username
+     * @param password
+     */
     @Override
     public void register(String username, String password) {
         User result = userMapper.selectByUserName(username);
@@ -43,6 +48,12 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    /**
+     * 用户登录
+     * @param username
+     * @param password
+     * @return
+     */
     @Override
     public User login(String username, String password) {
         String md5Str = null;
@@ -58,6 +69,10 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
+    /**
+     * 更新签名
+     * @param user
+     */
     @Override
     public void updateInformation(User user) {
         //更新个性签名
@@ -67,6 +82,11 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    /**
+     * 判断当前用户是否为管理员
+     * @param user
+     * @return
+     */
     @Override
     public boolean checkAdminRole(User user) {
         //1是普通用户 2是管理员

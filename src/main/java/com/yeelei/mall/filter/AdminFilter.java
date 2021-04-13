@@ -28,10 +28,12 @@ public class AdminFilter implements Filter {
         HttpSession session = request.getSession();
         User currUser = (User) session.getAttribute(Constant.YEELEI_MALL_USER);
         if (currUser == null) {
-            PrintWriter out = new ServletResponseWrapper((HttpServletResponse) servletResponse).getWriter();
-            out.write("\"status\": 10007,\n" +
-                    "    \"msg\": \"NEED_LOGIN\",\n" +
-                    "    \"data\": null");
+            PrintWriter out = new HttpServletResponseWrapper((HttpServletResponse) servletResponse).getWriter();
+            out.write("{\n"
+                    + "    \"status\": 10007,\n"
+                    + "    \"msg\": \"NEED_LOGIN\",\n"
+                    + "    \"data\": null\n"
+                    + "}");
             out.flush();
             out.close();
             return;

@@ -21,6 +21,13 @@ public enum YeeLeiMallExceptionEnum {
     MAKDIR_FAILED(10015,"创建文件夹失败"),
     UPLOAD_FAILED(10016,"上传文件失败"),
     PRODUCT_NOT_EXISTED(10017,"商品不存在"),
+    NOT_SALE(10018,"商品状态不可售"),
+    NOT_ENOUGH(10019,"商品库存不足"),
+    CART_EMPTY(10020,"购物车为空"),
+    NOT_ENUM(10021,"未找到对应的枚举类"),
+    NO_ORDER(10022,"未找到此订单"),
+    CANCEL_ERROR(10022,"取消订单失败"),
+    WRONG_ORDER_STATUS(10023,"订单状态不符"),
     SYSTEM_ERROR(20000, "系统异常");
 
     private Integer code;

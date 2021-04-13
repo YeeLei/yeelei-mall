@@ -32,6 +32,11 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private CategoryService categoryService;
 
+    /**
+     * 添加商品
+     *
+     * @param addProductReq 添加商品请求参数
+     */
     @Override
     public void add(AddProductReq addProductReq) {
         Product oldProduct = productMapper.selectByName(addProductReq.getName());
@@ -47,6 +52,11 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
+    /**
+     * 更新商品
+     *
+     * @param updateProductReq 更新商品请求参数
+     */
     @Override
     public void update(UpdateProductReq updateProductReq) {
         Product oldProduct = productMapper.selectByName(updateProductReq.getName());
@@ -62,6 +72,11 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
+    /**
+     * 删除商品
+     *
+     * @param id 商品id
+     */
     @Override
     public void delete(Integer id) {
         Product product = productMapper.selectByPrimaryKey(id);
@@ -76,11 +91,24 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
+    /**
+     * 批量上下架商品
+     *
+     * @param ids        商品ids
+     * @param sellStatus 商品上下架状态
+     */
     @Override
     public void batchUpdateSellStatus(Integer[] ids, Integer sellStatus) {
         productMapper.batchUpdateSellStatus(ids, sellStatus);
     }
 
+    /**
+     * 后台商品列表
+     *
+     * @param pageNum  页码
+     * @param pageSize 每页显示的条数
+     * @return 分页列表
+     */
     @Override
     public PageInfo listProductForAdmin(Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
@@ -89,6 +117,12 @@ public class ProductServiceImpl implements ProductService {
         return pageInfo;
     }
 
+    /**
+     * 前台商品列表
+     *
+     * @param productListReq 前台商品列表参数
+     * @return 分页列表
+     */
     @Override
     public PageInfo listProductForConsumer(ProductListReq productListReq) {
         //构建商品query
@@ -122,6 +156,7 @@ public class ProductServiceImpl implements ProductService {
         return new PageInfo<>(productList);
     }
 
+    //递归遍历获取所有分类id
     private void getCategoryIds(List<CategoryVO> categoryVOList, List<Integer> categoryIds) {
         for (CategoryVO categoryVO : categoryVOList) {
             if (categoryVO != null) {
@@ -131,10 +166,16 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
+    /**
+     * 根据商品id查询商品详情
+     *
+     * @param id 商品id
+     * @return 商品详情信息
+     */
     @Override
     public Product detail(Integer id) {
         Product product = productMapper.selectByPrimaryKey(id);
-        if (product ==null) {
+        if (product == null) {
             throw new YeeLeiMallExcetion(YeeLeiMallExceptionEnum.PRODUCT_NOT_EXISTED);
         }
         return product;

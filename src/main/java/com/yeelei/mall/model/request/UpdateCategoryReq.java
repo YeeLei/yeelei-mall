@@ -7,6 +7,9 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+/**
+ * 描述：更新商品分类请求参数
+ */
 @Data
 public class UpdateCategoryReq {
     @NotNull(message = "分类id不能为空")

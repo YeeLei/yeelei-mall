@@ -1,12 +1,9 @@
-package com.yeelei.mall.model.pojo;
+package com.yeelei.mall.model.vo;
 
 import lombok.Data;
 
-import java.util.Date;
-
 @Data
-public class OrderItem {
-    private Integer id;
+public class OrderItemVO {
 
     private String orderNo;
 
@@ -21,8 +18,4 @@ public class OrderItem {
     private Integer quantity;
 
     private Integer totalPrice;
-
-    private Date createTime;
-
-    private Date updateTime;
 }

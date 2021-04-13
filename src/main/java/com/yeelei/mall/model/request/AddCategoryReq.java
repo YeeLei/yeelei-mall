@@ -7,6 +7,9 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+/**
+ * 描述：添加分类请求参数
+ */
 @Data
 public class AddCategoryReq {
     @Size(min = 2, max = 5)
